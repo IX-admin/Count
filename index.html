@@ -5,19 +5,21 @@
     body {
       font-family: Segoe UI;
       text-align: center;
-      background-color: #f3f2f1;
       margin: 0;
       padding: 20px;
+      background-color: #f3f2f1;
     }
+
     .title {
-      font-size: 20px;
+      font-size: 18px;
       color: #323130;
+      margin-bottom: 10px;
     }
+
     .countdown {
-      font-size: 28px;
+      font-size: 32px;
       font-weight: bold;
       color: #d83b01;
-      margin-top: 10px;
     }
   </style>
 </head>
@@ -27,16 +29,28 @@
 <div id="countdown" class="countdown"></div>
 
 <script>
-var countDownDate = new Date("Jul 19, 2026 17:00:00").getTime();
+var countDownDate = new Date("Jul 31, 2026 17:00:00").getTime();
 
-setInterval(function() {
+var x = setInterval(function() {
+
   var now = new Date().getTime();
   var distance = countDownDate - now;
 
+  // Time calculations
   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+  // Output
   document.getElementById("countdown").innerHTML =
-    days + " days remaining";
+    days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+
+  // When finished
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("countdown").innerHTML = "Deadline reached";
+  }
 
 }, 1000);
 </script>
